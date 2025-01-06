@@ -6,8 +6,7 @@ Gem::Specification.new do |s|
   s.description = 'A custom Cucumber formatter that supports outputting of test results in CTRF (https://www.ctrf.io/) JSON format, including support for flaky tests.'
   s.authors     = ['James Meneghello', 'DUSC']
   s.email       = 'james@dusc.dev'
-  s.homepage    =
-    'https://rubygems.org/gems/cucumber-ctrf'
+  s.homepage    = 'https://github.com/dusc-dev/cucumber-ctrf'
   s.license = 'MIT'
 
   s.add_runtime_dependency 'cucumber', '> 8'
