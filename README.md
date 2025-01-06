@@ -7,7 +7,7 @@ Cucumber formatter to output test results in CTRF (https://www.ctrf.io/) JSON fo
 Add to Gemfile:
 
 ```ruby
-cucumber-ctrf
+gem "cucumber-ctrf"
 ```
 
 Add formatter to either a Cucumber profile or CLI:
