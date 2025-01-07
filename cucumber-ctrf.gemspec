@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'cucumber-ctrf'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.required_ruby_version = '>= 3.0'
   s.summary     = 'Cucumber formatter to output test results in CTRF (https://www.ctrf.io/) JSON format.'
   s.description = 'A custom Cucumber formatter that supports outputting of test results in CTRF (https://www.ctrf.io/) JSON format, including support for flaky tests.'
@@ -9,11 +9,9 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/dusc-dev/cucumber-ctrf'
   s.license = 'MIT'
 
-  s.add_runtime_dependency 'cucumber', '~> 8'
-  s.add_runtime_dependency 'cucumber-messages', '< 25', '> 19'
+  s.add_runtime_dependency 'cucumber', '>= 8'
 
-  s.add_development_dependency 'cucumber', '~> 8'
-  s.add_development_dependency 'cucumber-messages', '< 25', '> 19'
+  s.add_development_dependency 'cucumber', '>= 8'
   s.add_development_dependency 'rake', '~> 13.2'
   s.add_development_dependency 'rspec', '~> 3.13'
   s.add_development_dependency 'rspec-json_matchers'
