@@ -5,7 +5,7 @@ require 'cucumber/formatter/io'
 require 'cucumber/formatter/ast_lookup'
 
 module Ctrf
-  class Formatter
+  class CucumberFormatter
     include Cucumber::Formatter::Io
 
     def initialize(config)

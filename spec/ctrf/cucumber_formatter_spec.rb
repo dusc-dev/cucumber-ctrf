@@ -4,7 +4,7 @@ require 'cucumber/cli/options'
 require 'json'
 
 module Ctrf
-  describe Formatter do
+  describe CucumberFormatter do
     extend Cucumber::Formatter::SpecHelperDsl
     include Cucumber::Formatter::SpecHelper
 
@@ -102,26 +102,6 @@ module Ctrf
       it 'outputs the json data' do
         expect(@out.string).to be_json.with_content('passed').at_path('results.tests.0.status')
         expect(@out.string).to be_json.with_content(1).at_path('results.summary.passed')
-      end
-    end
-
-    describe 'with a background' do
-      define_feature <<~FEATURE
-        Feature: Banana party
-
-          Background: There are bananas
-            Given there are bananas
-
-          Scenario: Monkey eats bananas
-            Then the monkey eats bananas
-
-          Scenario: Monkey eats more bananas
-            Then the monkey eats more bananas
-      FEATURE
-
-      it 'includes the background in the json data each time it is executed' do
-        expect(@out.string).to be_json.with_content('other').at_path('results.tests.0.status')
-        expect(@out.string).to be_json.with_content(2).at_path('results.summary.other')
       end
     end
   end

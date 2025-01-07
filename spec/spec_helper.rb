@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'cucumber'
-require 'cucumber-ctrf'
+require 'ctrf/cucumber_formatter'
 require 'rspec-json_matchers'
 
 RSpec.configure do |config|

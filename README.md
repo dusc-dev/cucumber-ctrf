@@ -13,5 +13,5 @@ gem "cucumber-ctrf"
 Add formatter to either a Cucumber profile or CLI:
 
 ```
-cucumber --format Ctrf::Formatter --out <path>.ctrf.json
+cucumber --format Ctrf::CucumberFormatter --out <path>.ctrf.json
 ```
