@@ -10,8 +10,10 @@ Gem::Specification.new do |s|
   s.license = 'MIT'
 
   s.add_runtime_dependency 'cucumber', '> 8'
+  s.add_runtime_dependency 'cucumber-messages', '< 25', '> 19'
 
   s.add_development_dependency 'cucumber', '> 8'
+  s.add_development_dependency 'cucumber-messages', '< 25', '> 19'
   s.add_development_dependency 'rake', '~> 13.2'
   s.add_development_dependency 'rspec', '~> 3.13'
   s.add_development_dependency 'rspec-json_matchers'
