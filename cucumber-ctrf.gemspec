@@ -9,10 +9,10 @@ Gem::Specification.new do |s|
   s.homepage    = 'https://github.com/dusc-dev/cucumber-ctrf'
   s.license = 'MIT'
 
-  s.add_runtime_dependency 'cucumber', '> 8'
+  s.add_runtime_dependency 'cucumber', '~> 8'
   s.add_runtime_dependency 'cucumber-messages', '< 25', '> 19'
 
-  s.add_development_dependency 'cucumber', '> 8'
+  s.add_development_dependency 'cucumber', '~> 8'
   s.add_development_dependency 'cucumber-messages', '< 25', '> 19'
   s.add_development_dependency 'rake', '~> 13.2'
   s.add_development_dependency 'rspec', '~> 3.13'
