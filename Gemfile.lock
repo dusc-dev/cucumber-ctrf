@@ -1,9 +1,8 @@
 PATH
   remote: .
   specs:
-    cucumber-ctrf (0.0.1)
-      cucumber (> 8)
-      cucumber-messages (> 19, < 25)
+    cucumber-ctrf (0.1.1)
+      cucumber (>= 8)
 
 GEM
   remote: https://rubygems.org/
@@ -38,8 +37,16 @@ GEM
       cucumber-messages (> 19, < 27)
     cucumber-messages (22.0.0)
     cucumber-tag-expressions (6.1.1)
+    date (3.4.1)
+    debug (1.10.0)
+      irb (~> 1.10)
+      reline (>= 0.3.8)
     diff-lcs (1.5.1)
     ffi (1.17.1-aarch64-linux-gnu)
+    io-console (0.8.0)
+    irb (1.14.3)
+      rdoc (>= 4.0.0)
+      reline (>= 0.4.2)
     json (2.9.1)
     language_server-protocol (3.17.0.3)
     mini_mime (1.1.5)
@@ -48,10 +55,17 @@ GEM
     parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
+    psych (5.2.3)
+      date
+      stringio
     racc (1.8.1)
     rainbow (3.1.1)
     rake (13.2.1)
+    rdoc (6.11.0)
+      psych (>= 4.0.0)
     regexp_parser (2.10.0)
+    reline (0.6.0)
+      io-console (~> 0.5)
     rexml (3.4.0)
     rspec (3.13.0)
       rspec-core (~> 3.13.0)
@@ -94,6 +108,7 @@ GEM
       rubocop-capybara (~> 2.17)
       rubocop-factory_bot (~> 2.22)
     ruby-progressbar (1.13.0)
+    stringio (3.1.2)
     sys-uname (1.3.1)
       ffi (~> 1.1)
     unicode-display_width (2.6.0)
@@ -102,9 +117,9 @@ PLATFORMS
   aarch64-linux
 
 DEPENDENCIES
-  cucumber (> 8)
+  cucumber (>= 8)
   cucumber-ctrf!
-  cucumber-messages (> 19, < 25)
+  debug (>= 1.0.0)
   rake (~> 13.2)
   rspec (~> 3.13)
   rspec-json_matchers

@@ -1,0 +1,32 @@
+{
+  "results": {
+    "tool": {
+      "name": "Cucumber-Ruby"
+    },
+    "summary": {
+      "tests": 1,
+      "passed": 1,
+      "failed": 0,
+      "pending": 0,
+      "skipped": 0,
+      "other": 0,
+      "start": 1737358400,
+      "stop": 1737358400
+    },
+    "tests": [
+      {
+        "name": "",
+        "suite": "features/example.feature",
+        "filePath": "features/example.feature:3",
+        "extra": {
+          "hash": 1240908923045939047
+        },
+        "duration": 2261,
+        "status": "passed",
+        "rawStatus": "passed",
+        "flaky": false,
+        "message": null
+      }
+    ]
+  }
+}

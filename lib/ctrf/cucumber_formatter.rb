@@ -9,16 +9,30 @@ module Ctrf
     include Cucumber::Formatter::Io
 
     def initialize(config)
+      # The Cucumber Formatter can get re-run many times (e.g. Knapsack)
+      # So, we need to make sure we load any existing file into the test object array, if one is provided.
+      if !io?(config.out_stream) && File.exist?(config.out_stream)
+        data = JSON.load_file(config.out_stream)
+        tests = deep_symbolize_keys(
+          data.dig('results', 'tests').to_h do |test|
+            [test.dig('extra', 'hash'), test]
+          end
+        )
+        run_start = data.dig('results', 'summary', 'start')
+      end
+
       @io = ensure_io(config.out_stream, config.error_stream)
       @ast_lookup = Cucumber::Formatter::AstLookup.new(config)
-      @tests = {}
+
+      @tests = tests || {}
       begin
         @bc = Rails::ActiveSupport::BacktraceCleaner.new
       rescue StandardError
         @bc = nil
       end
 
-      @run_start = Time.now.to_i
+      # Use the existing run_start if there is one
+      @run_start = run_start || Time.now.to_i
       config.on_event :test_case_started, &method(:on_test_case_started)
       config.on_event :test_case_finished, &method(:on_test_case_finished)
       config.on_event :test_step_started, &method(:on_test_step_started)
@@ -141,6 +155,31 @@ module Ctrf
         'pending'
       else
         'other'
+      end
+    end
+
+    def deep_symbolize_keys(obj)
+      deep_transform_keys(obj) do |key|
+        key.to_sym
+      rescue StandardError
+        key
+      end
+    end
+
+    def deep_transform_keys(obj, &block)
+      _deep_transform_keys_in_object(obj, &block)
+    end
+
+    def _deep_transform_keys_in_object(object, &block)
+      case object
+      when Hash
+        object.each_with_object({}) do |(key, value), result|
+          result[yield(key)] = _deep_transform_keys_in_object(value, &block)
+        end
+      when Array
+        object.map { |e| _deep_transform_keys_in_object(e, &block) }
+      else
+        object
       end
     end
   end
