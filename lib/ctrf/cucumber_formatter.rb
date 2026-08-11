@@ -41,11 +41,8 @@ module Ctrf
     end
 
     def on_test_case_started(event)
-      # Set up the object for use if it doesn't exist already
-      # It might, if retries
-      return if @tests.key?(event.test_case.hash)
-
-      @tests[event.test_case.hash] = {
+      # Set up the object for use if it doesn't exist already (it might, on retries).
+      @tests[event.test_case.hash] ||= {
         name: event.test_case.name,
         suite: event.test_case.location.file,
         filePath: event.test_case.location.to_s,
@@ -53,6 +50,9 @@ module Ctrf
           hash: event.test_case.hash
         }
       }
+
+      # Track the active test so #attach can route output/embeddings onto it.
+      @current_test = @tests[event.test_case.hash]
     end
 
     def on_test_step_started(event)
@@ -116,18 +116,41 @@ module Ctrf
       @io.write(JSON.pretty_generate(result))
     end
 
+    # Cucumber invokes #attach whenever a step attaches data — a log line via
+    # `log`, or an embedding such as the screenshot capybara-screenshot saves on
+    # failure. Log output and embeddings are captured onto the active test and
+    # surfaced in the CTRF output via its `extra` payload.
     def attach(src, mime_type, _filename)
       if mime_type == 'text/x.cucumber.log+plain'
         test_step_output << src
         return
       end
+
       if mime_type =~ /;base64$/
         mime_type = mime_type[0..-8]
         data = src
       else
-        data = encode64(src)
+        data = Base64.encode64(src)
       end
       test_step_embeddings << { mime_type: mime_type, data: data }
+    end
+
+    # Log output for the active test. Cucumber calls #attach during step
+    # execution, between test_case_started and test_case_finished, so this routes
+    # onto the current test. Returns a throwaway array if there is no active test
+    # (e.g. an attachment from a global hook) so attaching never crashes.
+    def test_step_output
+      return [] if @current_test.nil?
+
+      @current_test[:extra][:output] ||= []
+    end
+
+    # Embeddings ({ mime_type, base64 data }) for the active test. See
+    # #test_step_output for the no-active-test guard.
+    def test_step_embeddings
+      return [] if @current_test.nil?
+
+      @current_test[:extra][:embeddings] ||= []
     end
 
     def get_backtrace_object(result)
